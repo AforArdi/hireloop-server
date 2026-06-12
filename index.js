@@ -51,8 +51,12 @@ async function run() {
         })
 
         // company related api
-        app.get('/api/companies', async (req, res) => {
-            const result = await companyCollection.find().toArray();
+        app.get('/api/my/companies', async (req, res) => {
+            const query = {}
+            if (req.query.recruiterId) {
+                query.recruiterId = req.query.recruiterId;
+            }
+            const result = await companyCollection.find(query).toArray();
             res.send(result);
         })
 
